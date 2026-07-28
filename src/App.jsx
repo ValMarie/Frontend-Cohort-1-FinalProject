@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import MovieCard from "./MovieCard";
 import "./App.css";
@@ -47,7 +47,7 @@ function App() {
   async function fetchMovies(searchQuery) {
     try {
       const response = await fetch(
-        `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}`
+        `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}`,
       );
 
       if (!response.ok) {
@@ -82,7 +82,7 @@ function App() {
 
   function toggleWatched(movieId) {
     const updated = watchlist.map((m) =>
-      m.id === movieId ? { ...m, watched: !m.watched } : m
+      m.id === movieId ? { ...m, watched: !m.watched } : m,
     );
     setWatchlist(updated);
     console.log("Toggled movie. Current list:", watchlist);

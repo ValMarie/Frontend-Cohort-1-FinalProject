@@ -33,9 +33,7 @@ function MovieCard({
         <div className="movie-meta">
           <span className="year">{year}</span>
           {movie.vote_average > 0 && (
-            <span className="rating">
-              {movie.vote_average.toFixed(1)} / 10
-            </span>
+            <span className="rating">{movie.vote_average.toFixed(1)} / 10</span>
           )}
         </div>
 

@@ -26,3 +26,6 @@ FINAL_PROJECT_BRIEF.md
 *.njsproj
 *.sln
 *.sw?
+
+#Enviroment variable
+.env
