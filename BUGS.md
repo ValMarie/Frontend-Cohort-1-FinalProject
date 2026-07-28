@@ -23,3 +23,13 @@ What is broken - Input on the searchbar did not return anything
 Where - App.jsx, line 45
 Why - Search did not fire because the useEffect hook has an empty dependency arrar. So, it only runs once on mount and does nothing else
 How i fixed it - Added [query] to the dependency instead of the empty [] array and the setSearchResult([]) to hold the array. Also added a clearTimeout function to cleanup previous timer and start a new search on every keystroke
+
+
+
+# Bug 4 - Reversed Watch list filtered
+
+What is broken - filteredWatchList returned the reverse of what theyy should  on click
+Where - App.jsx, line 95
+Why - The if (filter === "watched") conditional statement should return n.watched instead of the reverse !n.watched. Same also for the second statement.
+How i fixed it - Changed !n.wtched to n.watched (for the first statement) and n.watched to !n.watched (for the second statement)
+

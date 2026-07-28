@@ -15,7 +15,7 @@ function App() {
   const [error, setError] = useState(null);
 
   // Load watchlist from localStorage on mount
-  useEffect(() => {
+   useEffect(() => {
     try {
       const saved = localStorage.getItem("movieWatchlist");
       if (saved) {
@@ -28,7 +28,7 @@ function App() {
 
   // Save watchlist to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem("myWatchlist", JSON.stringify(watchlist));
+    localStorage.setItem("movieWatchlist", JSON.stringify(watchlist)); //  localStorage key does not correspond
   }, [watchlist]);
 
   // Search movies from TMDB API with debounce
