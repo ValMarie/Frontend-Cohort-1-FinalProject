@@ -32,17 +32,20 @@ function App() {
   }, [watchlist]);
 
   // Search movies from TMDB API with debounce
-  useEffect(() => {
+   useEffect(() => {
     if (!query.trim()) {
+      setSearchResults([]);
       return;
     }
 
     setLoading(true);
 
-    const timerId = setTimeout(() => {
+     const timerId = setTimeout(() => {
       fetchMovies(query);
     }, 500);
-  }, []);
+
+    return () => clearTimeout(timerId);
+  }, [query]);
 
   async function fetchMovies(searchQuery) {
     try {
