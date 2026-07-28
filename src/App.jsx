@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+  import { useEffect, useState } from "react"; // useState was not defined
 
 import MovieCard from "./MovieCard";
 import "./App.css";
@@ -50,7 +50,7 @@ function App() {
   async function fetchMovies(searchQuery) {
     try {
       const response = await fetch(
-        `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}`,
+        `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery ?? "")}`,
       );
 
       if (!response.ok) {
@@ -88,12 +88,13 @@ function App() {
       m.id === movieId ? { ...m, watched: !m.watched } : m,
     );
     setWatchlist(updated);
-    console.log("Toggled movie. Current list:", watchlist);
+    console.log("Toggled movie. Current list:", watchlist); // Current watchist should be updated not watchist
   }
 
   const filteredWatchlist = watchlist.filter((m) => {
     if (filter === "watched") return m.watched;
     if (filter === "unwatched") return !m.watched; // Filter was returning the opposite of what should be returned
+
     return true;
   });
 
@@ -121,14 +122,18 @@ function App() {
           {error && <p className="error-message">Error: {error}</p>}
 
           <div className="movie-grid">
-            {searchResults.map((movie) => (
-              <MovieCard
-                key={movie.id}
-                movie={movie}
-                actionLabel="+ Add to Watchlist"
-                onAction={() => addToWatchlist(movie)}
-              />
-            ))}
+            {searchResults.map((movie) => {
+              const isAdded = watchlist.some((m) => m.id === movie.id);
+              return (
+                <MovieCard
+                  key={movie.id}
+                  movie={movie}
+                  actionLabel={isAdded ? "✓ Added" : "+ Add to Watchlist"}
+                  actionClassName={isAdded ? "btn-added" : "btn-add"}
+                  onAction={() => !isAdded && addToWatchlist(movie)}
+                />
+              );
+            })}
           </div>
         </section>
 
@@ -169,18 +174,15 @@ function App() {
             </p>
           ) : (
             <div className="movie-grid">
-              {searchResults.map((movie) => {
-                const isAdded = watchlist.some((m) => m.id === movie.id);
-                return (
-                  <MovieCard
-                    key={movie.id}
-                    movie={movie}
-                    actionLabel={isAdded ? "✓ Added" : "+ Add to Watchlist"}
-                    actionClassName={isAdded ? "btn-added" : "btn-add"}
-                    onAction={() => !isAdded && addToWatchlist(movie)}
-                  />
-                );
-              })}
+              {filteredWatchlist.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  movie={movie}
+                  isWatchlist={true}
+                  onToggleWatched={() => toggleWatched(movie.id)}
+                  onRemove={() => removeFromWatchlist(movie.id)}
+                />
+              ))}
             </div>
           )}
         </section>
