@@ -103,6 +103,16 @@
   background: var(--accent-hover);
 }
 
+.btn-added {
+  background: var(--success);
+  color: white;
+  flex: 1;
+}
+
+.btn-added:hover {
+  background: var(--success-hover);
+}
+
 .btn-toggle {
   background: var(--surface-hover);
   color: var(--text);

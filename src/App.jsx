@@ -15,7 +15,7 @@ function App() {
   const [error, setError] = useState(null);
 
   // Load watchlist from localStorage on mount
-   useEffect(() => {
+  useEffect(() => {
     try {
       const saved = localStorage.getItem("movieWatchlist");
       if (saved) {
@@ -32,7 +32,7 @@ function App() {
   }, [watchlist]);
 
   // Search movies from TMDB API with debounce
-   useEffect(() => {
+  useEffect(() => {
     if (!query.trim()) {
       setSearchResults([]);
       return;
@@ -40,7 +40,7 @@ function App() {
 
     setLoading(true);
 
-     const timerId = setTimeout(() => {
+    const timerId = setTimeout(() => {
       fetchMovies(query);
     }, 500);
 
@@ -137,7 +137,7 @@ function App() {
           <div className="watchlist-header">
             <h2>
               My Watchlist{" "}
-              <span className="count">({filteredWatchlist.length}</span>
+              <span className="count">({filteredWatchlist.length})</span>
             </h2>
             <div className="filter-buttons">
               <button
@@ -169,15 +169,18 @@ function App() {
             </p>
           ) : (
             <div className="movie-grid">
-              {filteredWatchlist.map((movie) => (
-                <MovieCard
-                  key={movie.id}
-                  movie={movie}
-                  isWatchlist={true}
-                  onToggleWatched={() => toggleWatched(movie.id)}
-                  onRemove={() => removeFromWatchlist(movie.id)}
-                />
-              ))}
+              {searchResults.map((movie) => {
+                const isAdded = watchlist.some((m) => m.id === movie.id);
+                return (
+                  <MovieCard
+                    key={movie.id}
+                    movie={movie}
+                    actionLabel={isAdded ? "✓ Added" : "+ Add to Watchlist"}
+                    actionClassName={isAdded ? "btn-added" : "btn-add"}
+                    onAction={() => !isAdded && addToWatchlist(movie)}
+                  />
+                );
+              })}
             </div>
           )}
         </section>

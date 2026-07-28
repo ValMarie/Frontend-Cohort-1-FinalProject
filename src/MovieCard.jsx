@@ -7,6 +7,7 @@ function MovieCard({
   actionLabel,
   onAction,
   isWatchlist,
+  actionClassName,
   onToggleWatched,
   onRemove,
 }) {
@@ -48,7 +49,7 @@ function MovieCard({
         <div className="card-actions">
           {/* Search result card -- show "Add to Watchlist" button */}
           {onAction && (
-            <button className="btn btn-add" onClick={onAction}>
+            <button className={`btn ${actionClassName}`} onClick={onAction}>
               {actionLabel}
             </button>
           )}
