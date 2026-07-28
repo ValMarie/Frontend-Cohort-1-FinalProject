@@ -89,8 +89,8 @@ function App() {
   }
 
   const filteredWatchlist = watchlist.filter((m) => {
-    if (filter === "watched") return !m.watched;
-    if (filter === "unwatched") return m.watched;
+    if (filter === "watched") return m.watched;
+    if (filter === "unwatched") return !m.watched; // Filter was returning the opposite of what should be returned
     return true;
   });
 
