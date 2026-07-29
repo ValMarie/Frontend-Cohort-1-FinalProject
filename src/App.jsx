@@ -1,4 +1,4 @@
-  import { useEffect, useState } from "react"; // useState was not defined
+import { useEffect, useState } from "react"; // useState was not defined
 
 import MovieCard from "./MovieCard";
 import "./App.css";
@@ -35,6 +35,7 @@ function App() {
   useEffect(() => {
     if (!query.trim()) {
       setSearchResults([]);
+      setError(null);
       return;
     }
 
@@ -61,6 +62,7 @@ function App() {
       setSearchResults(data.results || []);
     } catch (err) {
       setError(err.message);
+      setSearchResults([])
     } finally {
       setLoading(false);
     }
