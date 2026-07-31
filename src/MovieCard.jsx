@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./MovieCard.css";
 
 const IMG_BASE = "https://image.tmdb.org/t/p/w300";
@@ -21,13 +22,15 @@ function MovieCard({
 
   return (
     <div className={`movie-card ${movie.watched ? "watched" : ""}`}>
-      <div className="poster">
-        {posterUrl ? (
-          <img src={posterUrl} alt={`${movie.title} poster`} />
-        ) : (
-          <div className="no-poster">No Poster</div>
-        )}
-      </div>
+     <Link to={`/movie_details/${movie.id}`} state={{movie}}>
+        <div className="poster">
+          {posterUrl ? (
+            <img src={posterUrl} alt={`${movie.title} poster`} />
+          ) : (
+            <div className="no-poster">No Poster</div>
+          )}
+        </div>
+      </Link>
 
       <div className="card-info">
         <h3 className="movie-title">{movie.title}</h3>

@@ -58,11 +58,13 @@ function App() {
         throw new Error(`API error: ${response.status}`);
       }
 
+      // console.log(API_KEY);
+      
       const data = await response.json();
       setSearchResults(data.results || []);
     } catch (err) {
       setError(err.message);
-      setSearchResults([])
+      setSearchResults([]);
     } finally {
       setLoading(false);
     }
