@@ -56,3 +56,6 @@ What is broken - Error message persists after new search and when the search que
 Where - App.jsx, line 50, line 35
 Why - The catch(err) was set to trigger an error but was not set to clear it after a new search. Similarly, nothing clears out both the search results and error when query is emptied again
 How i fixed it - Added  setSearchResults([]) and setError(null) to clear out previous search results and error respectively when search query is emptied out. Also added setSearchResults([]) to the catch(err) to cancel out stale errors on new search
+
+
+MODIFICATION

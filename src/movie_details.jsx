@@ -32,19 +32,15 @@ const MoviePage = () => {
 
   return (
     <div className="movie-detail">
-      <header className="movie-detail-header">
+      <header >
         <nav className="nav-header">
-          <span>
             <h1>My Movie Tracker</h1>
-          </span>
         </nav>
       </header>
       <main>
         <section>
-          <div>
             <p>Showing details for movie ID: {id}</p>
-          </div>
-          <div className="detail-poster">
+          <div className="poster-detail">
             {posterUrl ? (
               <div className="">
                 <img src={posterUrl} alt={`${movie.title} poster`} />
@@ -55,15 +51,17 @@ const MoviePage = () => {
           </div>
           <div className="poster-info">
             <h2 className="poster-title">{movie.title}</h2>
-            <div className="">
-              <span className="">{year}</span>
+            <div className="poster-meta">
+              <span className="year">{year}</span>
               {movie.vote_average > 0 && (
                 <span className="rating">
                   {movie.vote_average.toFixed(1)} / 10
                 </span>
               )}
             </div>
-            {movie.overview && <p className="overview">{movie.overview}</p>}
+           <div>
+             {movie.overview && <p className="detail-overview">{movie.overview}</p>}
+           </div>
           </div>
         </section>
       </main>

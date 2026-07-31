@@ -22,7 +22,7 @@ function MovieCard({
 
   return (
     <div className={`movie-card ${movie.watched ? "watched" : ""}`}>
-     <Link to={`/movie_details/${movie.id}`} state={{movie}}>
+      <Link to={`/movie_details/${movie.id}`} state={{ movie }}>
         <div className="poster">
           {posterUrl ? (
             <img src={posterUrl} alt={`${movie.title} poster`} />

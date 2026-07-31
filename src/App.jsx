@@ -59,7 +59,7 @@ function App() {
       }
 
       // console.log(API_KEY);
-      
+
       const data = await response.json();
       setSearchResults(data.results || []);
     } catch (err) {
