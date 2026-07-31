@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation } from "react-router-dom";
+
+import "./movie_details.css";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const IMG_BASE = "https://image.tmdb.org/t/p/w300";
@@ -18,34 +20,55 @@ const MoviePage = () => {
     }
   }, [id, movie]);
 
-   if (!movie) return <div>Loading...</div>;
+  if (!movie) return <div>Loading...</div>;
 
   const posterUrl = movie.poster_path
     ? `${IMG_BASE}${movie.poster_path}`
     : null;
 
+  const year = movie.release_date
+    ? new Date(movie.release_date).getFullYear()
+    : "N/A";
+
   return (
-    <div>
-      <header className="app-header">
-        <h1>{movie.title}</h1>
-        <p>Showing details for movie ID: {id}</p>
-        <p></p>
+    <div className="movie-detail">
+      <header className="movie-detail-header">
+        <nav className="nav-header">
+          <span>
+            <h1>My Movie Tracker</h1>
+          </span>
+        </nav>
       </header>
       <main>
         <section>
-          <div className="">
+          <div>
+            <p>Showing details for movie ID: {id}</p>
+          </div>
+          <div className="detail-poster">
             {posterUrl ? (
-              <img src={posterUrl} alt={`${movie.title} poster`} />
+              <div className="">
+                <img src={posterUrl} alt={`${movie.title} poster`} />
+              </div>
             ) : (
               <div className="no-poster">No Poster</div>
             )}
           </div>
+          <div className="poster-info">
+            <h2 className="poster-title">{movie.title}</h2>
+            <div className="">
+              <span className="">{year}</span>
+              {movie.vote_average > 0 && (
+                <span className="rating">
+                  {movie.vote_average.toFixed(1)} / 10
+                </span>
+              )}
+            </div>
+            {movie.overview && <p className="overview">{movie.overview}</p>}
+          </div>
         </section>
       </main>
-      <footer>
-        <footer className="app-footer">
-          <p>Powered by TMDB API</p>
-        </footer>
+      <footer className="app-footer">
+        <p>Powered by TMDB API</p>
       </footer>
     </div>
   );
