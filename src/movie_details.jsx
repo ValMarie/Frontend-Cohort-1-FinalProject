@@ -35,7 +35,7 @@ const MoviePage = () => {
     <div className="movie-detail">
       <header>
         <nav className="nav-header">
-          <h1 className="app-title">My Movie Tracker</h1>
+          <h3 className="app-title">My Movie Tracker</h3>
           <Link to="/" className="back-link">
             ← Back to search
           </Link>
