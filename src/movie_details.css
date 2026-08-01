@@ -115,7 +115,18 @@
 
 @media (max-width: 640px) {
   .nav-header {
+    flex-wrap: wrap;
     padding: 1rem 0;
+    gap: 0.75rem;
+  }
+
+  .nav-header .app-title {
+    font-size: 1.2rem;
+  }
+
+  .nav-header .back-link {
+    margin-left: auto;
+    font-size: 0.95rem;
   }
 
   .poster-title {
