@@ -1,4 +1,12 @@
 ========== FINAL PROJECT =========
+s
+OVERVIEW
+This is the final project for the Frontend Cohort-01 
+It tests every thing ever learnt and more from the right semantic usage of HTM CSS ad JAVASCRIPT, to debugging and deployment and finally the use of AI tools for coding.
+
+The project is a movie tracker app that searches for movies, adds  them to a wtchlist and gives details on the selected movie when clicked
+
+
 
 BUG FIXES
 # Bug 1 - Page is blank
@@ -58,4 +66,14 @@ Why - The catch(err) was set to trigger an error but was not set to clear it aft
 How i fixed it - Added  setSearchResults([]) and setError(null) to clear out previous search results and error respectively when search query is emptied out. Also added setSearchResults([]) to the catch(err) to cancel out stale errors on new search
 
 
+
 MODIFICATION
+#1 - The "Add To Watchist" button was modified to change its background to green and text to "Added" when clicked to add movie to watchlist
+#2 - Added a movie detail page to show a detailed information of a movie selected
+#2 - The poster on the movie card was mdified to change its opacity on hover and clickable. The movie card on click links to the movie detail page to show more details of the movie
+
+
+
+AI USAGE
+Major AI companinons - ClaudeAI and Google.s Gemini
+My major prompts are to ask Claude to search for error and likely solutions. Germini is simply for research and study of features used or to be used
