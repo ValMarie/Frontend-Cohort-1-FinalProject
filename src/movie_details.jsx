@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Link } from "react-router-dom";
 
 import "./movie_details.css";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-const IMG_BASE = "https://image.tmdb.org/t/p/w300";
+const IMG_BASE = "https://image.tmdb.org/t/p/w500";
 const BASE_URL = "https://api.themoviedb.org/3";
 
 const MoviePage = () => {
@@ -14,9 +14,10 @@ const MoviePage = () => {
 
   useEffect(() => {
     if (!movie) {
-      fetch(`${BASE_URL}/movie_details/${id}?api_key=${API_KEY}`)
+      fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`)
         .then((res) => res.json())
-        .then((data) => setMovie(data));
+        .then((data) => setMovie(data))
+        .catch((err) => console.error(err));
     }
   }, [id, movie]);
 
@@ -32,21 +33,20 @@ const MoviePage = () => {
 
   return (
     <div className="movie-detail">
-      <header >
+      <header>
         <nav className="nav-header">
-            <h1>My Movie Tracker</h1>
+          <Link to="/" className="back-link">
+            ← Back to search
+          </Link>
         </nav>
       </header>
       <main>
         <section>
-            <p>Showing details for movie ID: {id}</p>
           <div className="poster-detail">
             {posterUrl ? (
-              <div className="">
-                <img src={posterUrl} alt={`${movie.title} poster`} />
-              </div>
+              <img src={posterUrl} alt={`${movie.title} poster`} />
             ) : (
-              <div className="no-poster">No Poster</div>
+              <div className="no-poster">No poster available</div>
             )}
           </div>
           <div className="poster-info">
@@ -59,9 +59,9 @@ const MoviePage = () => {
                 </span>
               )}
             </div>
-           <div>
-             {movie.overview && <p className="detail-overview">{movie.overview}</p>}
-           </div>
+            {movie.overview && (
+              <p className="detail-overview">{movie.overview}</p>
+            )}
           </div>
         </section>
       </main>

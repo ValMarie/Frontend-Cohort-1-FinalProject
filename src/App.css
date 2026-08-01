@@ -2,6 +2,15 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding: 0 16px;
+}
+
+.app main {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex: 1;
+  padding: 0 0 40px;
 }
 
 /* Header */
@@ -43,11 +52,12 @@
   background: var(--surface);
   color: var(--text);
   font-size: 1rem;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .search-bar input:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
 }
 
 .search-bar input::placeholder {
@@ -143,4 +153,46 @@
   border-top: 1px solid var(--border);
   color: var(--text-muted);
   font-size: 0.85rem;
+}
+@media (max-width: 768px) {
+  .app {
+    padding: 0 12px;
+  }
+
+  .app-header {
+    padding: 28px 0 20px;
+  }
+
+  .app-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .search-section,
+  .watchlist-section {
+    padding: 24px 0;
+  }
+
+  .watchlist-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-buttons {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .search-bar input {
+    padding: 14px 14px;
+  }
+
+  .filter-buttons button {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .movie-grid {
+    gap: 16px;
+  }
 }

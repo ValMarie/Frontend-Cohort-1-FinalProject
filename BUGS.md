@@ -75,5 +75,5 @@ MODIFICATION
 
 
 AI USAGE
-Major AI companinons - ClaudeAI and Google.s Gemini
-My major prompts are to ask Claude to search for error and likely solutions. Germini is simply for research and study of features used or to be used
+Major AI companinons - ClaudeAI, Git CoPilot  and Google.s Gemini
+My major prompts are to ask Claude to search for error and likely solutions. Germini is simply for research and study of features used or to be used. CoPilot did othr fixs which were overlook and added suggested coded with I either accepted or rejected

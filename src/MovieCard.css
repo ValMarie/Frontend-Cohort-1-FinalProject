@@ -5,9 +5,8 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
+  min-height: 100%;
 }
 
 .movie-card:hover {
@@ -139,4 +138,30 @@
 .btn-remove:hover {
   background: var(--danger);
   color: white;
+}
+
+@media (max-width: 640px) {
+  .card-info {
+    padding: 16px;
+  }
+
+  .movie-title {
+    font-size: 0.98rem;
+  }
+
+  .movie-meta {
+    font-size: 0.82rem;
+  }
+
+  .overview {
+    font-size: 0.85rem;
+  }
+
+  .btn,
+  .btn-add,
+  .btn-added,
+  .btn-toggle,
+  .btn-remove {
+    flex: 1 1 100%;
+  }
 }
