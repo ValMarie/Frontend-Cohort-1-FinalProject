@@ -8,9 +8,18 @@
 
 /* header */
 .nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 1.5rem 0;
   border-bottom: 1px solid var(--border);
   margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.nav-header .app-title {
+  margin: 0;
+  font-size: 1.5rem;
 }
 
 .nav-header .back-link {
@@ -21,7 +30,9 @@
   text-decoration: none;
   font-weight: 600;
   border: 1px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .nav-header .back-link:hover {

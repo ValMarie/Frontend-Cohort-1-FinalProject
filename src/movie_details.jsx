@@ -35,6 +35,7 @@ const MoviePage = () => {
     <div className="movie-detail">
       <header>
         <nav className="nav-header">
+          <h1 className="app-title">My Movie Tracker</h1>
           <Link to="/" className="back-link">
             ← Back to search
           </Link>
@@ -42,6 +43,7 @@ const MoviePage = () => {
       </header>
       <main>
         <section>
+         
           <div className="poster-detail">
             {posterUrl ? (
               <img src={posterUrl} alt={`${movie.title} poster`} />
