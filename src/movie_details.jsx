@@ -11,15 +11,54 @@ const MoviePage = () => {
   const { id } = useParams();
   const location = useLocation();
   const [movie, setMovie] = useState(location.state?.movie || null);
+  const [watchlist, setWatchlist] = useState([]);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("movieWatchlist");
+      if (saved) {
+        setWatchlist(JSON.parse(saved));
+      }
+    } catch (err) {
+      console.error("Failed to load watchlist:", err);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("movieWatchlist", JSON.stringify(watchlist));
+  }, [watchlist]);
 
   useEffect(() => {
     if (!movie) {
-      fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`)
+      fetch(`${BASE_URL}/movie/${id}?append_to_response=videos,images&api_key=${API_KEY}`)
         .then((res) => res.json())
         .then((data) => setMovie(data))
         .catch((err) => console.error(err));
     }
   }, [id, movie]);
+
+  const isInWatchlist = movie ? watchlist.some((m) => m.id === movie.id) : false;
+
+  const addToWatchlist = () => {
+    if (!movie || isInWatchlist) return;
+
+    const newMovie = {
+      id: movie.id,
+      title: movie.title,
+      poster_path: movie.poster_path,
+      release_date: movie.release_date,
+      overview: movie.overview,
+      vote_average: movie.vote_average,
+      watched: false,
+    };
+
+    setWatchlist((prev) => [...prev, newMovie]);
+  };
+
+  const removeFromWatchlist = () => {
+    if (!movie) return;
+    setWatchlist((prev) => prev.filter((m) => m.id !== movie.id));
+  };
 
   if (!movie) return <div>Loading...</div>;
 
@@ -30,6 +69,9 @@ const MoviePage = () => {
   const year = movie.release_date
     ? new Date(movie.release_date).getFullYear()
     : "N/A";
+
+    console.log(movie.id);
+    
 
   return (
     <div className="movie-detail">
@@ -64,6 +106,24 @@ const MoviePage = () => {
             {movie.overview && (
               <p className="detail-overview">{movie.overview}</p>
             )}
+
+            <div className="detail-actions">
+              <button
+                className={`detail-btn ${isInWatchlist ? "btn-added" : "btn-add"}`}
+                onClick={addToWatchlist}
+                disabled={isInWatchlist}
+              >
+                {isInWatchlist ? "✓ Added to Watchlist" : "+ Add to Watchlist"}
+              </button>
+
+              <button
+                className="detail-btn btn-remove"
+                onClick={removeFromWatchlist}
+                disabled={!isInWatchlist}
+              >
+                Remove from Watchlist
+              </button>
+            </div>
           </div>
         </section>
       </main>

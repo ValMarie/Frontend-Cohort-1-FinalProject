@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"; // useState was not defined
+import { useEffect, useState, useRef } from "react"; // useRef for carousel timing
 
 import MovieCard from "./MovieCard";
 import "./App.css";
@@ -13,6 +13,10 @@ function App() {
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [trendingMovies, setTrendingMovies] = useState([]);
+  const [trendingLoading, setTrendingLoading] = useState(false);
+  const trackRef = useRef(null);
+  const [carouselDuration, setCarouselDuration] = useState(18); // seconds
 
   // Load watchlist from localStorage on mount
   useEffect(() => {
@@ -28,8 +32,52 @@ function App() {
 
   // Save watchlist to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem("movieWatchlist", JSON.stringify(watchlist)); //  localStorage key does not correspond
+    localStorage.setItem("movieWatchlist", JSON.stringify(watchlist));
   }, [watchlist]);
+
+  // Load trending movies on mount
+  useEffect(() => {
+    async function fetchTrendingMovies() {
+      setTrendingLoading(true);
+
+      try {
+        const response = await fetch(
+          `${BASE_URL}/trending/movie/day?api_key=${API_KEY}`,
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to load trending movies");
+        }
+
+        const data = await response.json();
+        setTrendingMovies(data.results || []);
+      } catch (err) {
+        console.error("Trending movies error:", err);
+      } finally {
+        setTrendingLoading(false);
+      }
+    }
+
+    fetchTrendingMovies();
+  }, []);
+
+  // Compute an animation duration so the carousel moves at a steady speed (px/sec)
+  useEffect(() => {
+    function updateDuration() {
+      const track = trackRef.current;
+      if (!track) return;
+
+      // distance to travel equals half the track width (we duplicated items)
+      const distance = track.scrollWidth / 2;
+      const speed = 60; // pixels per second — tweak this value for faster/slower scroll
+      const seconds = Math.max(6, distance / speed);
+      setCarouselDuration(seconds);
+    }
+
+    updateDuration();
+    window.addEventListener("resize", updateDuration);
+    return () => window.removeEventListener("resize", updateDuration);
+  }, [trendingMovies]);
 
   // Search movies from TMDB API with debounce
   useEffect(() => {
@@ -57,8 +105,6 @@ function App() {
       if (!response.ok) {
         throw new Error(`API error: ${response.status}`);
       }
-
-      // console.log(API_KEY);
 
       const data = await response.json();
       setSearchResults(data.results || []);
@@ -92,7 +138,7 @@ function App() {
       m.id === movieId ? { ...m, watched: !m.watched } : m,
     );
     setWatchlist(updated);
-    console.log("Toggled movie. Current list:", watchlist); // Current watchist should be updated not watchist
+    console.log("Toggled movie. Current list:", updated); // Current watchlist should be updated not watchlist
   }
 
   const filteredWatchlist = watchlist.filter((m) => {
@@ -139,6 +185,49 @@ function App() {
               );
             })}
           </div>
+        </section>
+
+        {/* Trending Section */}
+        <section className="trending-section">
+          <h2>Trending Movies</h2>
+
+          {trendingLoading ? (
+            <p className="status-message">Loading trending movies...</p>
+          ) : trendingMovies.length === 0 ? (
+            <p className="status-message">No trending movies available.</p>
+          ) : (
+            <div
+              className="trending-carousel"
+              aria-label="Trending movies carousel"
+            >
+              <div
+                className="carousel-track"
+                ref={trackRef}
+                style={{ animationDuration: `${carouselDuration}s` }}
+              >
+                {
+                  // Duplicate the slice so the animation can loop smoothly
+                  [
+                    ...trendingMovies.slice(0, 8),
+                    ...trendingMovies.slice(0, 8),
+                  ].map((movie, idx) => {
+                    // const i = idx % Math.min(0, trendingMovies.length);
+
+                    return (
+                      <div
+                        className="carousel-item"
+                        key={`${movie.id}-${idx}`}
+
+                        // style={{ "--i": i }}
+                      >
+                        <MovieCard movie={movie} />
+                      </div>
+                    );
+                  })
+                }
+              </div>
+            </div>
+          )}
         </section>
 
         {/* Watchlist Section */}
