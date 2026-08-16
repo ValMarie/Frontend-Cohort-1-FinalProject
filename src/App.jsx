@@ -205,26 +205,22 @@ function App() {
                 ref={trackRef}
                 style={{ animationDuration: `${carouselDuration}s` }}
               >
-                {
-                  // Duplicate the slice so the animation can loop smoothly
-                  [
-                    ...trendingMovies.slice(0, 8),
-                    ...trendingMovies.slice(0, 8),
-                  ].map((movie, idx) => {
-                    // const i = idx % Math.min(0, trendingMovies.length);
+                {[
+                  ...trendingMovies.slice(0, 8),
+                  ...trendingMovies.slice(0, 8),
+                ].map((movie, idx) => {
+                  // const i = idx % Math.min(0, trendingMovies.length);
 
-                    return (
-                      <div
-                        className="carousel-item"
-                        key={`${movie.id}-${idx}`}
-
-                        // style={{ "--i": i }}
-                      >
-                        <MovieCard movie={movie} />
-                      </div>
-                    );
-                  })
-                }
+                  return (
+                    <div
+                      className="carousel-item"
+                      key={`${movie.id}-${idx}`}
+                      // style={{ "--i": i }}
+                    >
+                      <MovieCard movie={movie} />
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}

@@ -30,14 +30,18 @@ const MoviePage = () => {
 
   useEffect(() => {
     if (!movie) {
-      fetch(`${BASE_URL}/movie/${id}?append_to_response=videos,images&api_key=${API_KEY}`)
+      fetch(
+        `${BASE_URL}/movie/${id}?append_to_response=videos,images&api_key=${API_KEY}`,
+      )
         .then((res) => res.json())
         .then((data) => setMovie(data))
         .catch((err) => console.error(err));
     }
   }, [id, movie]);
 
-  const isInWatchlist = movie ? watchlist.some((m) => m.id === movie.id) : false;
+  const isInWatchlist = movie
+    ? watchlist.some((m) => m.id === movie.id)
+    : false;
 
   const addToWatchlist = () => {
     if (!movie || isInWatchlist) return;
@@ -70,8 +74,7 @@ const MoviePage = () => {
     ? new Date(movie.release_date).getFullYear()
     : "N/A";
 
-    console.log(movie.id);
-    
+  console.log(movie.id);
 
   return (
     <div className="movie-detail">
@@ -85,7 +88,6 @@ const MoviePage = () => {
       </header>
       <main>
         <section>
-         
           <div className="poster-detail">
             {posterUrl ? (
               <img src={posterUrl} alt={`${movie.title} poster`} />
