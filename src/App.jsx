@@ -206,16 +206,14 @@ function App() {
                 style={{ animationDuration: `${carouselDuration}s` }}
               >
                 {[
-                  ...trendingMovies.slice(0, 8),
-                  ...trendingMovies.slice(0, 8),
+                  ...trendingMovies.slice(0, 10),
+                  ...trendingMovies.slice(0, 10),
                 ].map((movie, idx) => {
-                  // const i = idx % Math.min(0, trendingMovies.length);
 
                   return (
                     <div
                       className="carousel-item"
                       key={`${movie.id}-${idx}`}
-                      // style={{ "--i": i }}
                     >
                       <MovieCard movie={movie} />
                     </div>

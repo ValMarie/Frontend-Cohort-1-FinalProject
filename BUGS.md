@@ -70,10 +70,15 @@ How i fixed it - Added  setSearchResults([]) and setError(null) to clear out pre
 MODIFICATION
 #1 - The "Add To Watchist" button was modified to change its background to green and text to "Added" when clicked to add movie to watchlist
 #2 - Added a movie detail page to show a detailed information of a movie selected
-#2 - The poster on the movie card was mdified to change its opacity on hover and clickable. The movie card on click links to the movie detail page to show more details of the movie
+#2 - The poster on the movie card was modified to change its opacity on hover and clickable. The movie card on click links to the movie detail page to show more details of the movie
 
 
 
 AI USAGE
 Major AI companinons - ClaudeAI, Git CoPilot  and Google.s Gemini
 My major prompts are to ask Claude to search for error and likely solutions. Germini is simply for research and study of features used or to be used. CoPilot did othr fixs which were overlook and added suggested coded with I either accepted or rejected
+
+
+FUTHER MODIFICATIONS
+#1 - The movie details page was further modified to have the movie description align at the centre with an addition of the Add to WatchList button and Remove from WatchList button
+#2 - A sliding carousel of Trending Movies was added

@@ -101,8 +101,7 @@
   gap: 18px;
   align-items: flex-end;
   padding-bottom: 6px;
-  /* slide continuously; duplicated items allow a smooth loop */
-  animation: slide 18s linear infinite;
+  animation: slide 30s linear infinite;
   will-change: transform;
 }
 
@@ -111,15 +110,11 @@
 }
 
 .carousel-item {
-  flex: 0 0 220px;
+  flex: 0 0 clamp(160px, 22vw, 260px);
+  height: calc(clamp(160px, 22vw, 360px) * 1.25);
   transition: transform 280ms ease;
-  z-index: calc(100 - var(--i, 0));
-}
-
-.carousel-item > * {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 10px 24px rgba(6, 10, 15, 0.08);
+  display: flex;
+  align-items: stretch;
 }
 
 @keyframes slide {
@@ -127,7 +122,7 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-180%);
   }
 }
 
@@ -205,12 +200,6 @@
     padding: 0 12px;
   }
 
-  .trending-section,
-  .search-section,
-  .watchlist-section {
-    padding-top: 24px;
-  }
-
   .app-header {
     padding: 28px 0 20px;
   }
@@ -220,7 +209,8 @@
   }
 
   .search-section,
-  .watchlist-section {
+  .watchlist-section,
+  .trending-section {
     padding: 24px 0;
   }
 
